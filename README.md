@@ -1,82 +1,152 @@
-# Overdue Invoice Operations Agent
+# Agentic Overdue Invoice Assistant
 
-## Overview
-The Overdue Invoice Operations Agent is an **agentic AI system** designed to analyze overdue invoices, assess financial risk, and propose follow-up actions using enterprise-grade guardrails.
+An **agentic AI system** designed for finance and accounts receivable teams to manage overdue invoices using natural language, human-in-the-loop approvals, and external tool execution.
 
-The system uses a **Large Language Model (LLM) for reasoning** and **deterministic tools for execution**, ensuring safety, auditability, and business alignment.
-
-This repository demonstrates how agentic AI can be applied to ERP-style workflows using **LangChain + OpenAI**, with dummy data that can be easily replaced by real integrations (e.g., NetSuite or Microsoft Dynamics 365).
-
----
-
-## Why Agentic AI (Not a Chatbot)
-Traditional chatbots respond to queries. This agent:
-- Performs multi-step reasoning
-- Selects and executes tools
-- Uses observations to guide next actions
-- Maintains state and memory
-- Operates under explicit safety constraints
-
-This aligns with modern **Agentic AI** patterns used in enterprise automation.
+This project demonstrates how to build a **real-world AI agent** that:
+- Reasons over structured financial data
+- Maintains conversational and operational state
+- Requires explicit human approval before taking action
+- Integrates securely with external systems (Gmail API via OAuth)
 
 ---
 
-## High-Level Architecture
+## 🚀 What This Agent Does
+
+The agent supports end-to-end overdue invoice workflows:
+
+- 📊 **Retrieve overdue invoices** from structured datasets (Excel / ERP-style data)
+- ⚠️ **Assess invoice risk** based on days overdue
+- ✉️ **Generate AI-written follow-up emails** (subject + body)
+- 🧠 **Enforce human approval** before any email is sent
+- 📧 **Send emails via Gmail API** using OAuth authentication
+- 📝 **Audit all actions** for traceability
+
+This is an **agentic system** that reasons, plans, pauses for approval, and then executes actions.
+
+---
+## Problem Statement
+
+Overdue invoice follow-ups are typically manual, inconsistent, and error-prone.
+This agent demonstrates how AI systems can safely automate financial workflows
+while preserving human control, auditability, and compliance.
+---
+## 🧠 Architecture Overview
 
 User
 ↓
-Agent Interface (CLI / API)
+CLI Interface (main.py)
 ↓
-LangChain Agent Orchestrator
-↓
-LLM Reasoning Engine (OpenAI API)
-↓
-Deterministic Tools
-↓
-Data Layer (Dummy → ERP)
-↓
-Structured Output + Audit Logs
+Agent Orchestrator
+├── Reasoning (LLM)
+├── State Management
+├── Approval Gates
+└── Tool Invocation
+├── Invoice Data Tool
+├── Risk Analysis Tool
+├── Email Drafting Tool
+└── Gmail Sender Tool (OAuth)
 
+
+Key design principles:
+- **Human-in-the-loop safety**
+- **Deterministic business rules**
+- **Tool-based execution**
+- **No hallucinated data**
+
+---
+
+## 🛡️ Safety & Governance
+
+This agent enforces:
+- ✅ Explicit approval before sending any email
+- ✅ No data invention (only uses source datasets)
+- ✅ Clear audit logging
+- ✅ Test-mode email sending (safe by default)
+
+This mirrors how AI agents are expected to operate in **regulated enterprise environments**.
+
+---
 
 
 ---
 
-## Agent Workflow
-1. User submits a natural language request  
-2. The agent interprets intent using the LLM  
-3. The agent determines which tools to call  
-4. Invoice data is retrieved and analyzed  
-5. Follow-up actions are drafted (not executed)  
-6. All actions are logged for auditability  
-7. Results are returned to the user for review  
+## ⚙️ Getting Started
+
+### 1️⃣ Clone the Repository
+
+```bash
+git clone https://github.com/your-username/agentic-overdue-invoice-assistant.git
+cd agentic-overdue-invoice-assistant
+
+```
+
+### 2️⃣ Set Up Environment
+conda create -n invoice-agent python=3.10
+conda activate invoice-agent
+pip install -r requirements.txt
+
+### 3️⃣ Configure Environment Variables
+OPENAI_API_KEY=your_openai_key_here
+GMAIL_CLIENT_ID=your_google_client_id
+GMAIL_CLIENT_SECRET=your_google_client_secret
+
+### 4️⃣ Run the Agent
+python main.py
+
+## Example Interaction:
+
+You: give me top 5 overdue invoices
+You: draft email for INV-5076
+Agent: (shows email preview)
+Agent: Do you approve sending this email? (yes/no)
+
+
+## ✉️ Gmail Integration Notes
+
+Uses Google OAuth 2.0
+
+App runs in testing mode by default
+
+Only approved test accounts can send emails
+
+Production deployment would require Google verification or service accounts
+
+
+## This repository demonstrates:
+
+Practical agentic AI patterns
+
+Real-world human approval gates
+
+Enterprise-style tool orchestration
+
+Secure external system integration
+
+These are the same architectural patterns used in:
+
+Enterprise copilots
+
+Finance automation platforms
+
+Internal AI operations tools
+
+## Non-Goals
+
+This project intentionally does not:
+- Fully automate financial actions without human approval
+- Modify financial records directly
+- Replace accounting or legal judgment
+
+The focus is safe automation with human oversight.
 
 ---
 
-## Safety & Guardrails
-- The agent operates in **read-only mode** on financial data  
-- No emails or financial updates are executed automatically  
-- Human approval is required for any irreversible action  
-- All decisions and proposed actions are logged  
+## 👤 Author
 
----
+Muhammad Shahmeer Khan
 
-## Project Structure
+This project is part of ongoing work in applied AI, automation, and enterprise system integration.
 
-- `agent/` – Agent reasoning, orchestration, prompts, and memory  
-- `tools/` – Deterministic tools for data access and analysis  
-- `data/` – Dummy invoice data (replaceable with ERP APIs)  
-- `logs/` – Append-only audit logs  
-- `main.py` – Entry point  
+📜 License
 
----
-
-## Future Enhancements
-- Replace dummy data with NetSuite / D365 APIs  
-- Add role-based access control  
-- Introduce scheduling and proactive monitoring  
-- Integrate with Microsoft Copilot or Teams  
-
----
-
-## Disclaimer
-This project is a **prototype** intended to demonstrate architecture, reasoning flow, and enterprise AI design principles.
+MIT License
