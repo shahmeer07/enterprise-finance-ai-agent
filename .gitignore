@@ -1,0 +1,30 @@
+# Environment variables
+.env
+
+# Google OAuth / Gmail API
+credentials.json
+token.json
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environments
+venv/
+.env/
+.conda/
+
+# OS files
+.DS_Store
+
+# IDE files
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# Data files (keep datasets anonymised if needed)
+data/*.xlsx
