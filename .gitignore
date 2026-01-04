@@ -26,5 +26,4 @@ venv/
 # Logs
 *.log
 
-# Data files (keep datasets anonymised if needed)
-data/*.xlsx
+
